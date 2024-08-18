@@ -4,6 +4,7 @@ import HomePage from "./Pages/HomePage.tsx"
 import AuthCallbackPage from "./Pages/AuthCallbackPage.tsx"
 import UserProfilePage from "./Pages/UserProfilePage.tsx"
 import ProtectedRoute from "./auth/ProtectedRoute"
+import ManageRestaurantPage from "./Pages/ManageRestaurantPage.tsx"
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,14 @@ const AppRoutes = () => {
           element={
             <Layoutone>
               <UserProfilePage />
+            </Layoutone>
+          }
+        />
+        <Route
+          path="/manage-restaurant"
+          element={
+            <Layoutone>
+              <ManageRestaurantPage />
             </Layoutone>
           }
         />
