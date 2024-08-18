@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 import DetailsSection from "./DetailsSection"
+import { Separator } from "@radix-ui/react-separator"
+import CuisinesSection from "./CuisinesSection"
 
 const formSchema = z.object({
   restaurantName: z.string({
@@ -58,6 +60,8 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         className="space-y-8 bg-gray-50 p-10 rounded-lg"
       >
         <DetailsSection />
+        <Separator />
+        <CuisinesSection />
       </form>
     </FormProvider>
   )
