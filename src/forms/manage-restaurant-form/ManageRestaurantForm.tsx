@@ -5,6 +5,9 @@ import DetailsSection from "./DetailsSection"
 import { Separator } from "@radix-ui/react-separator"
 import CuisinesSection from "./CuisinesSection"
 import MenuSection from "./MenuSection"
+import ImageSection from "./ImageSection"
+import { Button } from "@/components/ui/button"
+import LoadingButton from "@/components/LoadingButton"
 
 const formSchema = z.object({
   restaurantName: z.string({
@@ -16,6 +19,9 @@ const formSchema = z.object({
   country: z.string({
     required_error: "country is required",
   }),
+  estimatedDeliveryTime: z.string({
+    required_error: "estimatedDeliveryTime is required",
+  }),
   deliveryPrice: z.coerce.number({
     required_error: "delivery price is required",
     invalid_type_error: "must be a valid number",
@@ -23,6 +29,7 @@ const formSchema = z.object({
   cuisines: z.array(z.string()).nonempty({
     message: "please select at least one item",
   }),
+
   menuItem: z.array(
     z.object({
       name: z.string().min(1, "name is required"),
@@ -40,7 +47,6 @@ type Props = {
 }
 
 const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
-  console.log(onSave, isLoading)
   const form = useForm<restaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,8 +56,36 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
   })
 
   const onSubmit = (formDatajson: restaurantFormData) => {
-    console.log(formDatajson)
-    // TODO - convert formDatajson to a new FormData object
+    const formData = new FormData()
+
+    formData.append("restaurantName", formDatajson.restaurantName)
+    formData.append("city", formDatajson.city)
+    formData.append("country", formDatajson.country)
+
+    formData.append(
+      "deliveryPrice",
+      (formDatajson.deliveryPrice * 100).toString()
+    )
+
+    formData.append(
+      "estimatedDeliveryTime",
+      formDatajson.estimatedDeliveryTime.toString()
+    )
+    formDatajson.cuisines.forEach((cuisine, index) => {
+      formData.append(`cuisines[${index}],`, cuisine)
+    })
+
+    formDatajson.menuItem.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][name]`, menuItem.name)
+      formData.append(
+        `menuItems[${index}][price]`,
+        (menuItem.price * 100).toString()
+      )
+    })
+
+    formData.append(`imageFile`, formDatajson.imageFile)
+
+    onSave(formData)
   }
 
   return (
@@ -65,6 +99,10 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         <CuisinesSection />
         <Separator />
         <MenuSection />
+        <Separator />
+        <ImageSection />
+
+        {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
       </form>
     </FormProvider>
   )
