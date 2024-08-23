@@ -8,6 +8,7 @@ import MenuSection from "./MenuSection"
 import ImageSection from "./ImageSection"
 import { Button } from "@/components/ui/button"
 import LoadingButton from "@/components/LoadingButton"
+// import { Form } from "@/components/ui/form"
 
 const formSchema = z.object({
   restaurantName: z.string({
@@ -84,12 +85,13 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     })
 
     formData.append(`imageFile`, formDatajson.imageFile)
-
+    console.log("This is a form data : ", formData)
     onSave(formData)
   }
 
   return (
     <FormProvider {...form}>
+      {/* <Form {...form}> */}
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 bg-gray-50 p-10 rounded-lg"
@@ -104,6 +106,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
 
         {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
       </form>
+      {/* </Form> */}
     </FormProvider>
   )
 }
