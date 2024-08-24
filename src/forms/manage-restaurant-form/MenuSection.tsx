@@ -8,7 +8,7 @@ const MenuSection = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "menuItems", // This should match the array name
+    name: "menuItem", // This should match the array name
   })
 
   return (
@@ -19,7 +19,7 @@ const MenuSection = () => {
 
       <FormField
         control={control}
-        name="menuItems" // This should refer to the array, not an individual item
+        name="menuItem" // This should refer to the array, not an individual item
         render={() => (
           <FormItem className="flex flex-col gap-2">
             {fields.map((_, index) => (
@@ -32,7 +32,7 @@ const MenuSection = () => {
           </FormItem>
         )}
       />
-      <Button type="button" onClick={() => append({ name: "", price: "" })}>
+      <Button type="button" onClick={() => append({ name: "", price: 0 })}>
         Add Menu Item
       </Button>
     </div>

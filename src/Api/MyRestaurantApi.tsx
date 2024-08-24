@@ -17,15 +17,17 @@ const useCreateMyRestaurant = () => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
-      body: restaurantFormData,
+      body: JSON.stringify(restaurantFormData),
     })
+    const data = await responce.json()
+    console.log(data)
 
     if (!responce.ok) {
       throw new Error("Faild to create restaurant")
     }
-
-    return responce.json()
+    return data
   }
 
   const {

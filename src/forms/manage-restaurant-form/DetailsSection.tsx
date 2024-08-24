@@ -27,9 +27,9 @@ const DetailsSection = () => {
             <FormLabel>Name</FormLabel>
             <FormControl>
               <Input
+                className="bg-white"
                 {...field}
                 value={field.value ?? ""}
-                className="bg-white"
               />
             </FormControl>
             <FormMessage />
@@ -76,7 +76,7 @@ const DetailsSection = () => {
 
       <FormField
         control={control}
-        name="deleveryPrice"
+        name="deliveryPrice"
         render={({ field }) => (
           <FormItem className="max-w-[25%]">
             <FormLabel>Delivery price ($)</FormLabel>
