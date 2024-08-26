@@ -30,7 +30,7 @@ const formSchema = z.object({
     message: "please select at least one item",
   }),
 
-  menuItem: z.array(
+  menuItems: z.array(
     z.object({
       name: z.string().min(1, "name is required"),
       price: z.coerce.number().min(1, "price is required"),
@@ -51,39 +51,43 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       cuisines: [],
-      menuItem: [{ name: "", price: 0 }],
+      menuItems: [{ name: "", price: 0 }],
     },
   })
 
-  const onSubmit = (formDatajson: restaurantFormData) => {
+  const onSubmit = (formDataJson: restaurantFormData) => {
     const formData = new FormData()
-
-    formData.append("restaurantName", formDatajson.restaurantName)
-    formData.append("city", formDatajson.city)
-    formData.append("country", formDatajson.country)
+    
+    formData.append("restaurantName", formDataJson.restaurantName)
+    formData.append("city", formDataJson.city)
+    formData.append("country", formDataJson.country)
 
     formData.append(
-      "deleveryPrice",
-      (formDatajson.deliveryPrice * 100).toString()
+      "deliveryPrice",
+      (formDataJson.deliveryPrice * 100).toString()
     )
 
     formData.append(
       "estimatedDeliveryTime",
-      formDatajson.estimatedDeliveryTime.toString()
+      formDataJson.estimatedDeliveryTime.toString()
     )
-    formDatajson.cuisines.forEach((cuisine, index) => {
-      formData.append(`cuisines[${index}],`, cuisine)
+
+    formDataJson?.cuisines.forEach((cuisine, index) => {
+      formData.append(`cuisines[${index}]`, cuisine)
     })
 
-    formDatajson.menuItem.forEach((menuItem, index) => {
-      formData.append(`menuItem[${index}][name]`, menuItem.name)
+    formDataJson?.menuItems.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][name]`, menuItem.name)
       formData.append(
-        `menuItem[${index}][price]`,
+        `menuItems[${index}][price]`,
         (menuItem.price * 100).toString()
       )
     })
 
-    formData.append(`imageFile`, formDatajson.imageFile)
+    if (formDataJson?.imageFile) {
+      formData.append(`imageFile`, formDataJson?.imageFile)
+    }
+
     onSave(formData)
   }
 

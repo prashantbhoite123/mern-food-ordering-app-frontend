@@ -5,7 +5,7 @@ import { toast } from "sonner"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
-const useCreateMyRestaurant = () => {
+export const useCreateMyRestaurant = () => {
   const { getAccessTokenSilently } = useAuth0()
 
   const createMyRestaurantRequest = async (
@@ -13,41 +13,30 @@ const useCreateMyRestaurant = () => {
   ): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently()
 
-    const responce = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(restaurantFormData),
+      body: restaurantFormData,
     })
-    const data = await responce.json()
-    console.log(data)
 
-    if (!responce.ok) {
-      throw new Error("Faild to create restaurant")
+    if (!response.ok) {
+      throw new Error("Failed to create restaurant")
     }
-    return data
+
+    return response.json()
   }
 
   const {
     mutate: createRestaurant,
     isLoading,
     isSuccess,
-    error,
+    isError,
   } = useMutation(createMyRestaurantRequest)
-
-  if (isSuccess) {
-    toast.success("Restaurant created !")
-  }
-
-  if (error) {
-    toast.error("Unable to Update restauarant")
-  }
-  return {
-    createRestaurant,
-    isLoading,
-  }
+  if (isSuccess) toast.success("Restaurant Created")
+  if (isError) toast.error("Cannot create restaurant")
+  return { createRestaurant, isLoading }
 }
 
 export default useCreateMyRestaurant

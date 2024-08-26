@@ -14,24 +14,23 @@ type Props = {
   removeMenuItem: () => void
 }
 
-const MeniItemInput = ({ index, removeMenuItem }: Props) => {
+const MenuItemInput = ({ index, removeMenuItem }: Props) => {
   const { control } = useFormContext()
 
   return (
     <div className="flex flex-row items-end gap-2">
       <FormField
         control={control}
-        name={`menuItem.${index}.name`}
+        name={`menuItems.${index}.name`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="items-center gap-1">
+            <FormLabel className="flex items-center gap-1">
               Name <FormMessage />
             </FormLabel>
             <FormControl>
               <Input
                 {...field}
-                value={field.value ?? ""}
-                placeholder="Cheez Pizza"
+                placeholder="Cheese Pizza"
                 className="bg-white"
               />
             </FormControl>
@@ -40,20 +39,14 @@ const MeniItemInput = ({ index, removeMenuItem }: Props) => {
       />
       <FormField
         control={control}
-        name={`menuItem.${index}.price`}
+        name={`menuItems.${index}.price`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="items-center gap-1">
-              Price ($)
-              <FormMessage />
+            <FormLabel className="flex items-center gap-1">
+              Price (£) <FormMessage />
             </FormLabel>
             <FormControl>
-              <Input
-                {...field}
-                value={field.value ?? ""}
-                placeholder="8.00"
-                className="bg-white"
-              />
+              <Input {...field} placeholder="8.00" className="bg-white" />
             </FormControl>
           </FormItem>
         )}
@@ -69,4 +62,4 @@ const MeniItemInput = ({ index, removeMenuItem }: Props) => {
   )
 }
 
-export default MeniItemInput
+export default MenuItemInput
