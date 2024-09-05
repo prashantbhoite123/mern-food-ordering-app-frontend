@@ -8,9 +8,9 @@ import ManageRestaurantForm from "@/forms/manage-restaurant-form/ManageRestauran
 const ManageRestaurantPage = () => {
   const { createRestaurant, isLoading: isCreateLoading } =
     useCreateMyRestaurant()
-  const { restaurant } = useGetMyRestaturant()
+  const { restaurant, refetch } = useGetMyRestaturant()
   const { updateRestaurant, isLoading: isUpdateLoading } =
-    useUpdateMyRestaurant()
+    useUpdateMyRestaurant(refetch)
 
   const isEditing = !!restaurant
 

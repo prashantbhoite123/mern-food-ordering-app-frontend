@@ -52,12 +52,13 @@ export const useGetMyRestaturant = () => {
     return response.json()
   }
 
-  const { data: restaurant, isLoading } = useQuery(
-    "fetchMyRestaurant",
-    getMyrestaurantRequest
-  )
+  const {
+    data: restaurant,
+    isLoading,
+    refetch,
+  } = useQuery("fetchMyRestaurant", getMyrestaurantRequest)
 
-  return { restaurant, isLoading }
+  return { restaurant, isLoading, refetch }
 }
 
 export const useCreateMyRestaurant = () => {
@@ -83,14 +84,17 @@ export const useCreateMyRestaurant = () => {
     return response.json()
   }
 
-  const {
-    mutate: createRestaurant,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useMutation(createMyRestaurantRequest)
-  if (isSuccess) toast.success("Restaurant Created")
-  if (isError) toast.error("Cannot create restaurant")
+  const { mutate: createRestaurant, isLoading } = useMutation(
+    createMyRestaurantRequest,
+    {
+      onSuccess: () => {
+        toast.success("Restaurant Created")
+      },
+      onError: () => {
+        toast.error("Cannot create restaurant")
+      },
+    }
+  )
   return { createRestaurant, isLoading }
 }
 
@@ -134,7 +138,7 @@ export const useCreateMyRestaurant = () => {
 //   return { updateRestaurant, isLoading }
 // }
 
-export const useUpdateMyRestaurant = () => {
+export const useUpdateMyRestaurant = (refetch: () => void) => {
   const { getAccessTokenSilently } = useAuth0()
 
   const updateRestaurantRequest = async (
@@ -160,20 +164,18 @@ export const useUpdateMyRestaurant = () => {
     return response.json()
   }
 
-  const {
-    mutate: updateRestaurant,
-    isLoading,
-    error,
-    isSuccess,
-  } = useMutation(updateRestaurantRequest)
-
-  if (isSuccess) {
-    toast.success("Restaurant Updated")
-  }
-
-  if (error) {
-    toast.error("Unable to update restaurant")
-  }
+  const { mutate: updateRestaurant, isLoading } = useMutation(
+    updateRestaurantRequest,
+    {
+      onSuccess: () => {
+        toast.success("Restaurant Updated")
+        refetch()
+      },
+      onError: () => {
+        toast.error("Unable to update restaurant")
+      },
+    }
+  )
 
   return { updateRestaurant, isLoading }
 }
