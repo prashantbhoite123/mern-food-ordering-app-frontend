@@ -19,7 +19,7 @@ const SearchResultCard = ({ restaurant }: Props) => {
           className="rounded-md w-full h-full object-cover"
         />
       </AspectRatio>
-      <div className="ml-2">
+      <div className="ml-4">
         <h3 className="text-2xl font-bold tracking-tight mb-2  group-hover:underline">
           {restaurant.restaurantName}
         </h3>
