@@ -76,7 +76,7 @@ const SearchPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5  py-4">
+    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
       <div id="cuisines-list">
         <CuisineFilter
           selectedCuisines={searchState.selectedCuisines}

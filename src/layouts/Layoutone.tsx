@@ -13,7 +13,7 @@ const Layoutone = ({ children, showHero = false }: Props) => {
       <Header />
       {showHero && <Hero />}
 
-      <div className="container mx-auto">{children}</div>
+      <div className="container mx-auto flex-1 py-10">{children}</div>
       <Footer />
     </div>
   )
