@@ -79,10 +79,28 @@ const DetailPage = () => {
     })
   }
 
+
+  
   const onCheckout = async (userFormData: UserFormData) => {
     if (!restaurant) {
       return
     }
+
+    // const checkoutData = {
+    //   cartItems: cartItems.map((cartItem) => ({
+    //     menuItemId: cartItem._id,
+    //     name: cartItem.name,
+    //     quantity: cartItem.quantity.toString(),
+    //   })),
+    //   deliveryDetails: {
+    //     name: userFormData.name,
+    //     addressLine1: userFormData.addressLine1,
+    //     city: userFormData.city,
+    //     country: userFormData.country,
+    //     email: userFormData.email as string,
+    //   },
+    //   restaurantId: restaurant?._id,
+    // }
 
     const checkoutData = {
       cartItems: cartItems.map((cartItem) => ({
@@ -90,7 +108,7 @@ const DetailPage = () => {
         name: cartItem.name,
         quantity: cartItem.quantity.toString(),
       })),
-      restaurantId: restaurant?._id,
+      restaurantId: restaurant._id,
       deliveryDetails: {
         name: userFormData.name,
         addressLine1: userFormData.addressLine1,

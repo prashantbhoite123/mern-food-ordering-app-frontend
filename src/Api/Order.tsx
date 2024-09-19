@@ -44,7 +44,7 @@ export const useCreateCheckoutSession = () => {
     if (!responce.ok) {
       throw new Error("Unable to create checkout session")
     }
-    return responce.json()
+    return data
   }
 
   const {
