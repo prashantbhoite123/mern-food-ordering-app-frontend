@@ -53,7 +53,7 @@ const CuisineFilter = ({
                   type="checkbox"
                   hidden
                   value={cuisine}
-                  checked={isSelected}
+                   checked={isSelected}
                   onChange={handekCuisinesChange}
                 />
                 <Label

@@ -7,6 +7,7 @@ import ProtectedRoute from "./auth/ProtectedRoute"
 import ManageRestaurantPage from "./Pages/ManageRestaurantPage.tsx"
 import SearchPage from "./Pages/SearchPage.tsx"
 import DetailPage from "./Pages/DetailPage.tsx"
+import OrderStatusPage from "./Pages/OrderStatusPage.tsx"
 
 const AppRoutes = () => {
   return (
@@ -38,6 +39,14 @@ const AppRoutes = () => {
       />
 
       <Route element={<ProtectedRoute />}>
+        <Route
+          path="/order-status"
+          element={
+            <Layoutone>
+              <OrderStatusPage />
+            </Layoutone>
+          }
+        />
         <Route
           path="/user-profile"
           element={

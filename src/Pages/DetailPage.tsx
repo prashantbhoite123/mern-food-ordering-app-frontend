@@ -86,21 +86,7 @@ const DetailPage = () => {
       return
     }
 
-    // const checkoutData = {
-    //   cartItems: cartItems.map((cartItem) => ({
-    //     menuItemId: cartItem._id,
-    //     name: cartItem.name,
-    //     quantity: cartItem.quantity.toString(),
-    //   })),
-    //   deliveryDetails: {
-    //     name: userFormData.name,
-    //     addressLine1: userFormData.addressLine1,
-    //     city: userFormData.city,
-    //     country: userFormData.country,
-    //     email: userFormData.email as string,
-    //   },
-    //   restaurantId: restaurant?._id,
-    // }
+
 
     const checkoutData = {
       cartItems: cartItems.map((cartItem) => ({
